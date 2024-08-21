@@ -1,6 +1,8 @@
 {
     "name": "kgkg/paysafecard-rest_api-php",
     "description": "For from original paysafecard-rest_api-php with support for PHP 7.4+",
+    "type": "library",
+    "license": "proprietary",
     "require": {
         "php": ">=7.2",
     }
