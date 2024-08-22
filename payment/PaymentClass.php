@@ -259,6 +259,9 @@ class PaysafecardPaymentController
                     $this->response["number"]  = "HTTP:500";
                     $this->response["message"] = 'Server error. Please check logs.';
                     break;
+                default:
+                    $this->response["number"] = $this->curl["error_nr"] ?? 0;
+                    $this->response["message"] = $this->curl["error_text"] ?? 'Server error. Please check logs.';
             }
         }
         switch ($this->response["number"]) {
@@ -278,9 +281,12 @@ class PaysafecardPaymentController
                 $this->response["message"] = 'Amount is not valid. Valid amount has to be above 0.';
                 break;
             default:
-                $this->response["message"] = 'Transaction could not be initiated due to connection problems. If the problem persists, please contact our support. ';
+                if (empty($this->response['message'])) {
+                    $this->response["message"] = 'Transaction could not be initiated due to connection problems. If the problem persists, please contact our support.';
+                }
                 break;
         }
         return $this->response;
     }
+
 }
